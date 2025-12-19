@@ -23,3 +23,5 @@ Skills differ from other primitives by supporting bundled assets (scripts, code 
 | Name | Description | Bundled Assets |
 | ---- | ----------- | -------------- |
 | [webapp-testing](../skills/webapp-testing/SKILL.md) | Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs. | `test-helper.js` |
+| [azure-iac-exporter](../skills/azure-iac-exporter/SKILL.md) | Export Azure resources to Infrastructure as Code templates via Azure Resource Graph analysis, Azure Resource Manager API calls, and handoff to azure-iac-generator. | `LICENSE.txt` |
+| [azure-iac-generator](../skills/azure-iac-generator/SKILL.md) | Central hub for generating Infrastructure as Code (Bicep, ARM, Terraform, Pulumi) with format-specific validation and best practices. | `LICENSE.txt` |
