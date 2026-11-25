@@ -837,7 +837,7 @@ These flags apply only to the current invocation — your persisted sandbox pref
 
 **`worktreeBaseRef` setting**: Controls whether `/worktree`, `/worktree new`, and the `--worktree` startup flag create the new worktree from `HEAD` or from the remote default branch. All three default to `HEAD`. Set this in `/settings` if you want worktrees to branch from the remote default instead.
 
-**Sandbox network isolation**: On macOS and Linux, sandboxed commands cannot reach services running on your own machine, including a server the sandboxed command itself starts on `127.0.0.1`. This means test suites that bind a local port will fail inside the sandbox. Turn on **Allow local network** in `/sandbox` to restore access to localhost. On Linux, sandboxing also requires `slirp4netns`, `nsenter`, `iptables`, `ip6tables`, `iptables-restore`, and `ip6tables-restore` on `PATH` — install these if sandboxed commands start failing to launch. Additionally, Linux sandboxes restrict network egress to the configured HTTP(S) proxy when one is set; this proxy mode requires `slirp4netns`, `util-linux` 2.35+, `iptables`, and `/dev/net/tun` access.
+**Sandbox network isolation**: Sandboxed commands can reach local services by default, including a server the sandboxed command starts on `127.0.0.1`, so test suites that bind a local port work. Turn off **Allow local network** in `/sandbox` for stricter isolation. On Linux, sandboxing also requires `slirp4netns`, `nsenter`, `iptables`, `ip6tables`, `iptables-restore`, and `ip6tables-restore` on `PATH` — install these if sandboxed commands start failing to launch. Additionally, Linux sandboxes restrict network egress to the configured HTTP(S) proxy when one is set; this proxy mode requires `slirp4netns`, `util-linux` 2.35+, `iptables`, and `/dev/net/tun` access.
 
 The `--attachment` flag (available in prompt mode, `-p`) lets you attach files — images or native documents — to the initial prompt in non-interactive mode:
 
@@ -940,6 +940,12 @@ Run `/config` to open a dedicated sidebar configuration screen inside the CLI, g
 ### Sandbox Session Control
 
 `/sandbox` can keep sandboxing enabled for the current session only, without changing your global setting. Sandboxed commands can use `HTTPS_PROXY` and `HTTP_PROXY` for host-rule traffic when no sandbox proxy is configured, and sandboxed git on github.com can use a `GITHUB_TOKEN` supplied through `credentials.envVars`. When sandboxed commands inherit your host proxy settings, `NO_PROXY` and `ALL_PROXY` are honored too.
+
+**Platform-specific sandbox policy**: `/sandbox policy` shows the GitHub account that sandboxed `gh` commands use. On macOS, set `sandbox.userPolicy.seatbelt.extraMachLookups` to allow specific Mach service lookups in sandboxed commands without enabling Keychain access. On Windows, sandbox package queries are enabled by default; set `sandbox.userPolicy.capabilities` to `[]` to opt out.
+
+### Timeline Timestamps
+
+Set `showTimelineTimestamps` in `/settings` to show start times, end times, and elapsed durations on timeline items, which helps when reviewing how long long-running agent steps took.
 
 ### Assisted Permissions Guidance
 
